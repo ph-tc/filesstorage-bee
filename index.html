@@ -321,7 +321,7 @@
       display: block;
       width: 40px;
       height: 22px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 489.4 356.1'%3E%3Cpath d='M382.4 356.1h-105V250h34.7c8.8 0 14-10 8.8-17.2l-67.5-93.4c-4.3-6-13.2-6-17.5 0l-67.5 93.4c-5.2 7.2-.1 17.2 8.8 17.2h34.7v106.1H94.3C41.8 353.2 0 304.1 0 250.9c0-36.7 19.9-68.7 49.4-86-2.7-7.3-4.1-15.1-4.1-23.3 0-37.5 30.3-67.8 67.8-67.8 8.1 0 15.9 1.4 23.2 4.1C158 31.9 204.8 0 259.2 0c70.4.1 128.4 54 135 122.7 54.1 9.3 95.2 59.4 95.2 116.1 0 60.6-47.2 113.1-107 117.3z' fill='%23fff'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M25 17h-2c-.6 0-1 .4-1 1v2.5c0 .3-.2.5-.5.5h-17c-.3 0-.5-.2-.5-.5V18c0-.6-.4-1-1-1H1c-.6 0-1 .4-1 1v6c0 .6.4 1 1 1h24c.6 0 1-.4 1-1v-6c0-.6-.4-1-1-1zM12.3 16.7c.2.2.5.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7l-1.4-1.4c-.2-.2-.4-.3-.7-.3-.3 0-.5.1-.7.3l-1 1c-.3.3-.9.1-.9-.4V2c0-.6-.4-1-1-1h-2c-.6 0-1 .4-1 1v6.6c0 .4-.5.7-.9.4l-1-1c-.2-.2-.4-.3-.7-.3-.3 0-.5.1-.7.3L6.3 9.4c-.2.2-.3.4-.3.7s.1.5.3.7l6 5.9z' fill='%23fff'/%3E%3C/svg%3E");
       background-position: center;
       -webkit-background-size: contain;
       background-size: contain;
@@ -340,7 +340,7 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 22px;
       line-height: 22px;
-      color: #444;
+      color: #e3dede;
       opacity: 0.6;
     }
 
@@ -378,27 +378,24 @@
 
     /*FOOTER--------------------------------------------------------------------*/
 
-    .footer {
+    .rules {
       display: table-row;
     }
 
-    .footer p {
+    .rules .inner {
       padding: 2px;
     }
 
-    .footer p,
-    .footer a {
+    .rules span,
+    .rules a {
+      display: block;
       font-family: 'Open Sans', sans-serif;
       font-weight: normal;
       font-size: 16px;
       line-height: 16px;
       text-align: center;
-      color: #706E6D;
+      color: #e3dede;
       opacity: 0.6;
-    }
-
-    .footer a {
-      opacity: 1;
     }
   </style>
 </head>
@@ -411,7 +408,7 @@
       <button></button>
     </div>
     <div class="name">
-      <span>Файлообменник</span>
+      <span>Файлы Онлайн</span>
     </div>
     <div class="plus18 hidden"></div>
   </div>
@@ -436,7 +433,7 @@
         </div>
       </div>
       <a class="btn" id="btn" href="#">
-        <span>Загрузить</span>
+        <span>Скачать</span>
       </a>
       <div class="price">
         <p>Цена: 20 руб. за 1 день</p>
@@ -445,12 +442,13 @@
   </div>
 </div>
 
-<div class="footer" id="footer">
-  <p>Провайдер: ООО «Согласие»<br>
-    Infohelp@informpartner.com<br>
-    8-800-123-00-01<br>
+<div class="rules">
+  <div class="inner">
+    <span>Провайдер:ООО «Телеком Клуб»</span>
+    <span>claim@telecom-club.com</span>
+    <span>8-800-770-04-31</span>
     <a href="#">Пользовательское соглашение</a>
-  </p>
+  </div>
 </div>
 
 <script type="text/javascript">
