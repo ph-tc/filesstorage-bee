@@ -442,7 +442,7 @@
   </div>
 </div>
 
-<div class="rules">
+<div class="rules" id="footer">
   <div class="inner">
     <span>Провайдер:ООО «Телеком Клуб»</span>
     <span>claim@telecom-club.com</span>
@@ -458,9 +458,9 @@
         var buttonWrap = document['getElementsByClassName']('btn-wrapper')[0];
         footer['style']['bottom'] = "auto";
         footer['style']['top'] = (window['innerHeight'] - footer.offsetHeight) + 'px';
-        // if ((window['innerHeight'] > 212) && (window['innerHeight'] < 233)) {
-        //     buttonWrap['style']['marginTop'] = '-'+ (footer.offsetHeight-40) + 'px';
-        // } else { buttonWrap['style']['marginTop'] = 0; }
+        if ((window['innerHeight'] > 212) && (window['innerHeight'] < 233)) {
+            buttonWrap['style']['marginTop'] = '-'+ (footer.offsetHeight-55) + 'px';
+        } else { buttonWrap['style']['marginTop'] = 0; }
 
         document.body.style.height = window.innerHeight + 'px';
     }
