@@ -377,65 +377,68 @@
       right: 0;
       left: 0;
       top: 100%;
-      width: 80vw;
+      display: table-row;
+      width: 90vw;
       margin: 0 auto;
       margin-top: 62px;
+      text-align: left;
+      font-size: 0;
+    }
+
+    .rating .total {
+      display: table-cell;
+      width: 85px;
+      text-align: left;
+      vertical-align: middle;
     }
 
     .rating .total > span {
       position: relative;
       display: table-cell;
-      padding-left: 40px;
       font-family: 'Play', sans-serif;
       font-size: 60px;
       font-weight: bold;
-      line-height: 60px;
+      line-height: 50px;
       color: #FFFFFF;
-      text-align: right;
       vertical-align: middle;
-    }
-
-    .rating .total > span::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      display: block;
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
-      background-position: center;
-      background-repeat: no-repeat;
-      -webkit-background-size: contain;
-      background-size: contain;
+      text-align: left;
     }
 
     .rating .users {
-      display: table-cell;
-      width: 100%;
+      display: block;
+      width: 85px;
       font-family: 'Play', sans-serif;
-      font-size: 16px;
+      font-size: 11px;
       font-weight: normal;
-      line-height: 16px;
+      line-height: 18px;
       color: #FFFFFF;
       vertical-align: middle;
-      text-align: right;
+      text-align: left;
     }
 
     .rating .users span {
+      font-size: 16px;
       font-weight: bold;
       letter-spacing: 1px;
     }
 
     .rating .graphic {
-      margin-top: 5px;
+      display: table-cell;
+      width: 100%;
+      padding-left: 10px;
+      vertical-align: middle;
+    }
+
+    .rating .graphic .inner {
+      display: table;
+      width: 100%;
+      border-spacing: 0px 5px;
     }
 
     .rating .graphic .row {
+      display: table-row;
+      width: 100%;
+      height: 13px;
       text-align: center;
       margin-bottom: 5px;
     }
@@ -455,6 +458,7 @@
       font-weight: normal;
       line-height: 10px;
       color: #FFFFFF;
+      vertical-align: middle;
     }
 
     .rating .row .label::before {
@@ -506,17 +510,11 @@
     }
 
     .rating .row-2 .visual::after {
-      width: 18%;
+      width: 5%;
     }
 
     .rating .row-1 .visual::after {
       width: 2%;
-    }
-
-    @media screen and (max-height: 670px) {
-      .rating .graphic {
-        display: none;
-      }
     }
 
     @media screen and (max-height: 520px) {
@@ -525,12 +523,8 @@
       }
     }
 
-    @media screen and (max-height: 480px) {
+    @media screen and (max-height: 580px) {
       .rating {
-        display: none;
-      }
-
-      .rating .users {
         display: none;
       }
     }
@@ -629,25 +623,27 @@
           </div>
         </div>
         <div class="graphic">
-          <div class="row row-5">
-            <div class="label">5</div>
-            <div class="visual"></div>
-          </div>
-          <div class="row row-4">
-            <div class="label">4</div>
-            <div class="visual"></div>
-          </div>
-          <div class="row row-3">
-            <div class="label">3</div>
-            <div class="visual"></div>
-          </div>
-          <div class="row row-2">
-            <div class="label">2</div>
-            <div class="visual"></div>
-          </div>
-          <div class="row row-1">
-            <div class="label">1</div>
-            <div class="visual"></div>
+          <div class="inner">
+            <div class="row row-5">
+              <div class="label">5</div>
+              <div class="visual"> </div>
+            </div>
+            <div class="row row-4">
+              <div class="label">4</div>
+              <div class="visual"> </div>
+            </div>
+            <div class="row row-3">
+              <div class="label">3</div>
+              <div class="visual"> </div>
+            </div>
+            <div class="row row-2">
+              <div class="label">2</div>
+              <div class="visual"> </div>
+            </div>
+            <div class="row row-1">
+              <div class="label">1</div>
+              <div class="visual"> </div>
+            </div>
           </div>
         </div>
       </div>
