@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="format-detection" content="telephone=no">
+	<title th:text="${isWebRequest} == false ? 'Подтверждение оплаты с баланса телефона' : 'Подтверждение оплаты с баланса телефона шаг 2 из 2'">Подтверждение оплаты с баланса телефона</title>
+	<meta th:if="${isWebRequest} == false" name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes"/>
+	<meta th:if="${isWebRequest} == false" name="MobileOptimized" content="width"/>
+	<meta th:if="${isWebRequest} == false" name="HandheldFriendly" content="true"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="format-detection" content="telephone=no">
   <title>Файлы онлайн</title>
   <style>
     @font-face {
@@ -111,7 +113,6 @@
 
     body {
       position: relative;
-      display: table;
       height: 100%;
       width: 100%;
       margin: 0;
@@ -120,7 +121,14 @@
       -ms-text-size-adjust: 100%;
       -moz-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
+			overflow: hidden;
     }
+
+		form {
+			display: table;
+			width: 100%;
+			height: 100%;
+		}
 
     img {
       max-width: 100%;
@@ -135,7 +143,7 @@
     }
 
 
-    /*HEADER--------------------------------------------------------------------*/
+    /*HEADER*/
 
 
     .header {
@@ -193,6 +201,7 @@
       display: table-cell;
       width: 36px;
       height: 36px;
+			font-size: 0;
       background-image: url("data:image/svg+xml,%3Csvg width='37' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.684 23.755v-9.62H9.367v-2.467h5.519v12.087h-3.202zM26.908 14.795c0 1.05-.59 1.98-1.587 2.506 1.39.552 2.247 1.711 2.247 3.058 0 2.17-2.008 3.558-5.154 3.558s-5.154-1.361-5.154-3.504c0-1.374.941-2.546 2.388-3.099-1.068-.566-1.742-1.536-1.742-2.587 0-1.927 1.756-3.153 4.494-3.153 2.767-.027 4.508 1.24 4.508 3.22zM20.28 20.09c0 1.024.758 1.59 2.134 1.59 1.39 0 2.163-.552 2.163-1.59 0-.997-.772-1.563-2.163-1.563-1.376-.014-2.134.566-2.134 1.563zm.323-5.12c0 .862.646 1.347 1.811 1.347 1.166 0 1.812-.485 1.812-1.347 0-.903-.646-1.402-1.812-1.402-1.165 0-1.811.499-1.811 1.402z' fill='white'/%3E%3Cpath d='M32.905 13.03c.533 1.509.8 3.085.8 4.688 0 8.058-6.84 14.62-15.237 14.62-8.399 0-15.238-6.562-15.238-14.62C3.23 9.661 10.07 3.1 18.468 3.1c1.67 0 3.314.256 4.887.768V.633A19.206 19.206 0 0 0 18.468 0C8.286 0 0 7.95 0 17.718c0 9.77 8.286 17.719 18.468 17.719 10.181 0 18.467-7.95 18.467-17.718 0-1.59-.224-3.167-.66-4.69h-3.37z' fill='white'/%3E%3Cpath d='M31.979 4.757V1.36h-2.542v3.396h-3.525v2.438h3.525v3.396h2.541V7.195h3.54V4.757h-3.54z' fill='white'/%3E%3C/svg%3E");
       -webkit-background-size: contain;
       background-size: contain;
@@ -201,7 +210,7 @@
     }
 
 
-    /*MAIN-------------------------------------------------------------------------*/
+    /*MAIN*/
 
     .main {
       display: table-row;
@@ -215,92 +224,149 @@
       padding: 10px;
     }
 
-    .main .loading {
-      position: absolute;
-      left: 50%;
-      bottom: 100%;
-      -webkit-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-      width: 80%;
-      margin: 0 auto 35px;
-      text-align: center;
-    }
+		/*Loading*/
 
-    .main .loading h1 {
-      margin: 0 0 20px;
-      font-family: Play, sans-serif;
-      font-size: 30px;
-      line-height: 30px;
-      color: #fff;
-      text-transform: uppercase;
-    }
+		.main .loading {
+			position: absolute;
+			left: 50%;
+			bottom: 100%;
+			-webkit-transform: translate(-50%, 0);
+			-ms-transform: translate(-50%, 0);
+			transform: translate(-50%, 0);
+			width: 80%;
+			margin: 0 auto 35px;
+			text-align: center;
+		}
 
-    .main .loading .percenteges {
-      margin-bottom: 11px;
-    }
+		.main .loading h1 {
+			margin: 0 0 20px;
+			font-family: Play, sans-serif;
+			font-size: 30px;
+			line-height: 30px;
+			color: #fff;
+			text-transform: uppercase;
+		}
 
-    .main .loading .percenteges span {
-      font-family: Play, sans-serif;
-      font-size: 22px;
-      font-weight: bold;
-      line-height: 22px;
-      color: #fff;
-    }
+		.main .loading .percenteges {
+			margin-bottom: 11px;
+		}
 
-    .container {
-      width: 100%;
-      text-align: center;
-    }
+		.main .loading .percenteges span {
+			font-family: Play, sans-serif;
+			font-size: 22px;
+			font-weight: bold;
+			line-height: 22px;
+			color: #fff;
+		}
 
-    .progress {
-      padding: 6px;
-      background-color: rgba(0, 0, 0, 0.25);
-      -webkit-border-radius: 6px;
-      border-radius: 6px;
-      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
-    }
+		.container {
+			display: table;
+			width: 100%;
+			text-align: center;
+		}
 
-    .progress-bar {
-      height: 10px;
-      -webkit-border-radius: 4px;
-      border-radius: 4px;
-    }
+		.container span {
+			display: none;
+			font-family: Play, sans-serif;
+			font-size: 22px;
+			font-weight: bold;
+			line-height: 22px;
+			color: #fff;
+			vertical-align: middle;
+		}
 
-    .progress-striped .progress-bar {
-      background-color: #d2d2d2;
-      width: 100%;
-      background-image: -webkit-linear-gradient(
-        45deg, #706E6D 20%,
-        transparent 20%, transparent 40%,
-        #706E6D 40%, #706E6D 60%,
-        transparent 60%, transparent 80%,
-        #706E6D 80%
-      );
-      background-image: -o-linear-gradient(
-        45deg, #706E6D 20%,
-        transparent 20%, transparent 40%,
-        #706E6D 40%, #706E6D 60%,
-        transparent 60%, transparent 80%,
-        #706E6D 80%
-      );
-      background-image: linear-gradient(
-        45deg, #706E6D 20%,
-        transparent 20%, transparent 40%,
-        #706E6D 40%, #706E6D 60%,
-        transparent 60%, transparent 80%,
-        #706E6D 80%
-      );
-    }
+		.container .progress-wrapper {
+			display: table-cell;
+			width: 100%;
+			vertical-align: middle;
+		}
 
-    .main .loading .percenteges span:first-child {
-      float: left;
-    }
+		.progress {
+			padding: 6px;
+			background-color: rgba(0, 0, 0, 0.25);
+			-webkit-border-radius: 6px;
+			border-radius: 6px;
+			-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+		}
 
-    .main .loading .percenteges span:last-child {
-      float: right;
-    }
+		.progress-bar {
+			height: 10px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+		}
+
+		.progress-striped .progress-bar {
+			background-color: #d2d2d2;
+			width: 100%;
+			background-image: -webkit-linear-gradient(
+				45deg, #706E6D 20%,
+				transparent 20%, transparent 40%,
+				#706E6D 40%, #706E6D 60%,
+				transparent 60%, transparent 80%,
+				#706E6D 80%
+			);
+			background-image: -o-linear-gradient(
+				45deg, #706E6D 20%,
+				transparent 20%, transparent 40%,
+				#706E6D 40%, #706E6D 60%,
+				transparent 60%, transparent 80%,
+				#706E6D 80%
+			);
+			background-image: linear-gradient(
+				45deg, #706E6D 20%,
+				transparent 20%, transparent 40%,
+				#706E6D 40%, #706E6D 60%,
+				transparent 60%, transparent 80%,
+				#706E6D 80%
+			);
+		}
+
+		.main .loading .percenteges span:first-child {
+			float: left;
+		}
+
+		.main .loading .percenteges span:last-child {
+			float: right;
+		}
+
+		@media screen and (max-height: 570px) and (orientation: landscape) {
+			.main .loading h1 {
+				display: none;
+			}
+
+			.main .loading .percenteges {
+				display: none;
+			}
+
+			.container span {
+				display: table-cell;
+			}
+
+			.container .progress-wrapper {
+				padding: 0 10px;
+			}
+		}
+
+		@media screen and (max-height: 570px) and (orientation: portrait) {
+			.main .loading h1 {
+				display: none;
+			}
+		}
+
+		@media screen and (max-height: 430px) and (orientation: portrait) {
+			.main .loading {
+				display: none;
+			}
+		}
+
+		@media screen and (max-height: 320px) and (orientation: landscape) {
+			.main .loading {
+				display: none;
+			}
+		}
+
+		/*Button*/
 
     .main .btn-wrapper {
       position: absolute;
@@ -326,6 +392,7 @@
       background-color: green;
       -webkit-border-radius: 20px;
       border-radius: 20px;
+			border: none;
     }
 
     .main .btn span {
@@ -361,21 +428,41 @@
       background-repeat: no-repeat;
     }
 
-    .main .price {
-      position: absolute;
-      top: 100%;
-      width: 100%;
-      text-align: center;
-    }
+		.main .btn + div {
+			position: absolute;
+			top: 100%;
+			width: 100%;
+			text-align: center;
+		}
 
-    .main .price p {
-      margin-top: 5px;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 22px;
-      line-height: 22px;
-      color: #e3dede;
-      opacity: 0.6;
-    }
+		.main .price span {
+			display: none;
+		}
+
+		.main .price span:first-child {
+			display: inline-block;
+		}
+
+		.main .price .line2 {
+			display: inline-block;
+			margin: 5px auto 0;
+			font-family: 'Open Sans', sans-serif;
+			font-size: 22px;
+			font-weight: normal;
+			line-height: 22px;
+			color: #aaa;
+			background-color: #333;
+		}
+
+		@media screen and (max-height: 240px) and (orientation: landscape) {
+			.main .btn-wrapper {
+				top: auto;
+				bottom: 72px;
+				-webkit-transform: translate(0, -27px);
+				-ms-transform: translate(0, -27px);
+				transform: translate(0, -27px);
+			}
+		}
 
     /*Placeholder*/
 
@@ -385,228 +472,259 @@
       height: 100%;
     }
 
-    /*RATING------------------------------------*/
+		/*Rating*/
 
-    .rating {
-      display: table-row;
-      width: 90vw;
-      margin: 0 auto;
-      margin-top: 62px;
-      text-align: left;
-      font-size: 0;
-    }
+		.rating {
+			display: table-row;
+			width: 90vw;
+			margin: 0 auto;
+			margin-top: 62px;
+			text-align: left;
+			font-size: 0;
+		}
 
-    .rating .total {
-      display: table-cell;
-      width: 85px;
-      text-align: left;
-      vertical-align: middle;
-    }
+		.rating .total {
+			display: table-cell;
+			width: 85px;
+			text-align: left;
+			vertical-align: middle;
+		}
 
-    .rating .total > span {
-      position: relative;
-      display: table-cell;
-      font-family: 'Play', sans-serif;
-      font-size: 60px;
-      font-weight: bold;
-      line-height: 50px;
-      color: #FFFFFF;
-      vertical-align: middle;
-      text-align: left;
-    }
+		.rating .total > span {
+			position: relative;
+			display: table-cell;
+			font-family: 'Play', sans-serif;
+			font-size: 60px;
+			font-weight: bold;
+			line-height: 50px;
+			color: #FFFFFF;
+			vertical-align: middle;
+			text-align: left;
+		}
 
-    .rating .users {
-      display: block;
-      width: 85px;
-      font-family: 'Play', sans-serif;
-      font-size: 11px;
-      font-weight: normal;
-      line-height: 18px;
-      color: #FFFFFF;
-      vertical-align: middle;
-      text-align: left;
-    }
+		.rating .users {
+			display: block;
+			width: 85px;
+			font-family: 'Play', sans-serif;
+			font-size: 11px;
+			font-weight: normal;
+			line-height: 18px;
+			color: #FFFFFF;
+			vertical-align: middle;
+			text-align: left;
+		}
 
-    .rating .users span {
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+		.rating .users span {
+			font-size: 16px;
+			font-weight: bold;
+			letter-spacing: 1px;
+		}
 
-    .rating .graphic {
-      display: table-cell;
-      width: 100%;
-      padding-left: 10px;
-      vertical-align: middle;
-    }
+		.rating .graphic {
+			display: table-cell;
+			width: 100%;
+			padding-left: 10px;
+			vertical-align: middle;
+		}
 
-    .rating .graphic .inner {
-      display: table;
-      width: 100%;
-      border-spacing: 0 5px;
-    }
+		.rating .graphic .inner {
+			display: table;
+			width: 100%;
+			border-spacing: 0 5px;
+		}
 
-    .rating .graphic .row {
-      display: table-row;
-      width: 100%;
-      height: 13px;
-      text-align: center;
-      margin-bottom: 5px;
-    }
+		.rating .graphic .row {
+			display: table-row;
+			width: 100%;
+			height: 13px;
+			text-align: center;
+			margin-bottom: 5px;
+		}
 
-    .rating .graphic .row:last-child {
-      margin-bottom: 0;
-    }
+		.rating .graphic .row:last-child {
+			margin-bottom: 0;
+		}
 
-    .rating .row .label {
-      position: relative;
-      display: table-cell;
-      width: 10px;
-      padding-right: 10px;
-      padding-left: 15px;
-      font-family: 'Play', sans-serif;
-      font-size: 10px;
-      font-weight: normal;
-      line-height: 10px;
-      color: #FFFFFF;
-      vertical-align: middle;
-    }
+		.rating .row .label {
+			position: relative;
+			display: table-cell;
+			width: 10px;
+			padding-right: 10px;
+			padding-left: 15px;
+			font-family: 'Play', sans-serif;
+			font-size: 10px;
+			font-weight: normal;
+			line-height: 10px;
+			color: #FFFFFF;
+			vertical-align: middle;
+		}
 
-    .rating .row .label::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      display: block;
-      width: 10px;
-      height: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
-      background-position: center;
-      background-repeat: no-repeat;
-      -webkit-background-size: contain;
-      background-size: contain;
-    }
+		.rating .row .label::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			display: block;
+			width: 10px;
+			height: 10px;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
+			background-position: center;
+			background-repeat: no-repeat;
+			-webkit-background-size: contain;
+			background-size: contain;
+		}
 
-    .rating .row .visual {
-      position: relative;
-      display: table-cell;
-      width: 100%;
-      background-color: #706E6D;
-      -webkit-border-radius: 5px;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+		.rating .row .visual {
+			position: relative;
+			display: table-cell;
+			width: 100%;
+			background-color: #706E6D;
+			-webkit-border-radius: 5px;
+			border-radius: 5px;
+			overflow: hidden;
+		}
 
-    .rating .row .visual::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: block;
-      height: 100%;
-      -webkit-border-radius: 5px;
-      border-radius: 5px;
-      background-color: #d2d2d2;
-    }
+		.rating .row .visual::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: block;
+			height: 100%;
+			-webkit-border-radius: 5px;
+			border-radius: 5px;
+			background-color: #d2d2d2;
+		}
 
-    .rating .row-5 .visual::after {
-      width: 70%;
-    }
+		.rating .row-5 .visual::after {
+			width: 70%;
+		}
 
-    .rating .row-4 .visual::after {
-      width: 60%;
-    }
+		.rating .row-4 .visual::after {
+			width: 60%;
+		}
 
-    .rating .row-3 .visual::after {
-      width: 20%;
-    }
+		.rating .row-3 .visual::after {
+			width: 20%;
+		}
 
-    .rating .row-2 .visual::after {
-      width: 5%;
-    }
+		.rating .row-2 .visual::after {
+			width: 5%;
+		}
 
-    .rating .row-1 .visual::after {
-      width: 2%;
-    }
+		.rating .row-1 .visual::after {
+			width: 2%;
+		}
 
-    @media screen and (max-height: 500px) {
-      .main .loading h1 {
-        display: none;
-      }
-    }
+		@media screen and (max-height: 500px) {
+			.main .loading h1 {
+				display: none;
+			}
+		}
 
-    @media screen and (max-height: 540px) {
-      .rating .graphic {
-        display: none;
-      }
+		@media screen and (max-height: 550px) {
+			.rating .graphic {
+				display: none;
+			}
 
-      .rating .total {
-        display: block;
-        width: 80vw;
-        margin: 0 auto;
-      }
+			.rating .total {
+				display: block;
+				width: 80%;
+				margin: 0 auto;
+			}
 
-      .rating .total > span {
-        display: table-cell;
-        padding-left: 40px;
-      }
+			.rating .total > span {
+				display: table-cell;
+				padding-left: 40px;
+			}
 
-      .rating .total > span::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-        display: block;
-        width: 30px;
-        height: 30px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
-        background-position: center;
-        background-repeat: no-repeat;
-        -webkit-background-size: contain;
-        background-size: contain;
-      }
+			.rating .total > span::after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+				display: block;
+				width: 30px;
+				height: 30px;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
+				background-position: center;
+				background-repeat: no-repeat;
+				-webkit-background-size: contain;
+				background-size: contain;
+			}
 
-      .rating .total .users {
-        display: table-cell;
-        width: 100%;
-        font-size: 14px;
-        text-align: right;
-      }
-    }
+			.rating .total .users {
+				display: table-cell;
+				width: 100%;
+				font-size: 18px;
+				text-align: right;
+			}
+		}
 
-    @media screen and (max-height: 450px) {
-      .rating {
-        display: none;
-      }
-    }
+		@media screen and (max-height: 460px) and (orientation: landscape) {
+			.rating .graphic {
+				display: none;
+			}
 
-    @media screen and (max-height: 360px) {
-      .main .loading {
-        display: none;
-      }
-    }
+			.rating .total {
+				display: block;
+				width: 80%;
+				margin: 0 auto;
+			}
 
-    @media screen and (max-height: 240px) and (orientation: landscape) {
-      .main .inner {
-        display: table-cell;
-        vertical-align: middle;
-      }
+			.rating .total > span {
+				display: table-cell;
+				padding-left: 40px;
+			}
 
-      .main .btn-wrapper {
-        position: relative;
-        top: auto;
-        right: auto;
-        left: auto;
-        -webkit-transform: none;
-        -ms-transform: none;
-        transform: none;
-      }
-    }
+			.rating .total > span::after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+				display: block;
+				width: 30px;
+				height: 30px;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.481 19.481'%3E%3Cpath d='M10.201.758l2.478 5.865 6.344.545a.5.5 0 0 1 .285.876l-4.812 4.169 1.442 6.202a.5.5 0 0 1-.745.541l-5.452-3.288-5.452 3.288a.5.5 0 0 1-.745-.541l1.442-6.202-4.813-4.17a.5.5 0 0 1 .285-.876l6.344-.545L9.28.758a.5.5 0 0 1 .921 0z' fill='%23d2d2d2'/%3E%3C/svg%3E");
+				background-position: center;
+				background-repeat: no-repeat;
+				-webkit-background-size: contain;
+				background-size: contain;
+			}
+
+			.rating .total .users {
+				display: table-cell;
+				width: 100%;
+				font-size: 18px;
+				text-align: right;
+			}
+		}
+
+		@media (max-height: 430px) and (orientation: landscape) {
+			.rating {
+				display: none;
+			}
+		}
+
+		@media screen and (max-height: 430px) {
+			.rating {
+				display: none;
+			}
+		}
+
+		@media screen and (max-height: 570px) {
+			.main .loading h1 {
+				display: none;
+			}
+		}
 
 
-    /*FOOTER--------------------------------------------------------------------*/
+    /*FOOTER*/
 
     .rules {
       display: table-row;
@@ -631,20 +749,24 @@
 </head>
 
 
-<body>
-<div class="header">
+<body th:if="${isWebRequest} ==false" class="lbody" id="overflow">
+<form method="POST" action="/landing" th:attr="action=@{order.html(sessionId=${session_id})}" name="mainFrm">
+	<input type="hidden" name="requestId" th:value="${requestId}"/>
+	<input type="hidden" name="msisdn" th:value="${msisdn}"/>
+	<input type="hidden" name="repeatCode" value="false"/>
+<div class="header" id="header-block">
   <div class="inner">
     <div class="menu">
       <button></button>
     </div>
-    <div class="name">
+    <div class="name header-text">
       <span>Файлы Онлайн</span>
     </div>
-    <div class="plus18 hidden"></div>
+    <div class="plus18 hidden age-limit">+18</div>
   </div>
 </div>
 
-<div class="main">
+<div class="main" id="main-block">
   <div class="inner">
     <div class="placeholder"></div>
     <div class="rating">
@@ -682,42 +804,59 @@
     <div class="btn-wrapper" id="btn-wrapper">
       <div class="loading">
         <h1>Файл загружен</h1>
-        <div class="statusbar">
-          <div class="percenteges clearfix">
-            <span>0%</span>
-            <span>100%</span>
-          </div>
-          <div class="container">
-            <div class="progress progress-striped">
-              <div class="progress-bar">
-              </div>
-            </div>
-          </div>
-        </div>
+				<div class="statusbar">
+					<div class="percenteges clearfix">
+						<span>0%</span>
+						<span>100%</span>
+					</div>
+					<div class="container">
+						<span>0%</span>
+						<div class="progress-wrapper">
+							<div class="progress progress-striped">
+								<div class="progress-bar">
+								</div>
+							</div>
+						</div>
+						<span>100%</span>
+					</div>
+				</div>
       </div>
-      <a class="btn" id="btn" href="#">
-        <span>Скачать</span>
-      </a>
-      <div class="price">
-        <p>Цена: 20 руб. за 1 день</p>
-      </div>
+      <button class="btn" id="activation-btn" type="submit">
+        <span class="activation-btn-text">Скачать</span>
+      </button>
+			<div th:if="${useSmsLink == null || useSmsLink == 'false'}" id="info-block" class="info-block-text">
+        <span class="price" th:switch="${evalRequestType}">
+          <span th:case="'single-request'">
+            <span th:if="${tarifficationType == 1 and cpaRequestPriceCodePrice != null}" th:text="'Стоимость: ' + ${cpaRequestPriceCodePrice} + ' руб.'" class="line2">Стоимость: 13 руб.</span>
+          </span>
+          <span th:case="'subscription-request'">
+            <span th:if="${cpaSubscriptionChargePeriodPriceCodePrice > 0}" th:text="'Доступ: ' + ${cpaSubscriptionChargePeriodPriceCodePrice} + ' руб.' + ' за ' + ${cpaSubscriptionChargePeriodStr}" class="line2">Доступ: 32 руб. за 10 дней</span>
+          </span>
+          <span th:case="'tnb-subscription-request'">
+            <span th:text="${cpaSubscriptionChargePeriodPriceCodePrice > 0 ? cpaSubscriptionChargePeriodPriceCodePrice + ' руб.' : 'Бесплатно'} + ' ' + ${cpaTnbTryEndDate != null ? 'до ' + formatter.formatDate(cpaTnbTryEndDate, 'dd.MM.yyyy') : cpaSubscriptionPeriodStr}" class="line2">Бесплатно до ЧЧ.ММ.ГГ</span>
+            <span th:if="${buy_cpaSubscriptionChargePeriodPriceCodePrice > 0}" th:text="'Далее: ' + ${buy_cpaSubscriptionChargePeriodPriceCodePrice + ' руб.' + ' в ' + buy_cpaSubscriptionChargePeriodStr}" class="line3">Далее: 32 руб. в 10 дней</span>
+          </span>
+        </span>
+			</div>
     </div>
   </div>
 </div>
 
-<div class="rules" id="footer">
+<div class="rules" id="footer-block">
   <div class="inner">
-    <span>Провайдер:ООО «Телеком Клуб»</span>
-    <span>claim@telecom-club.com</span>
-    <span>8-800-770-04-31</span>
-    <a href="#">Пользовательское соглашение</a>
+		<span class="footer-text" th:utext="'Провайдер:' + ${(#strings.arraySplit(partnerContact, ','))[0]}">Провайдер:ООО «Телеком
+			Клуб»</span>
+		<span class="footer-text" th:utext="${(#strings.arraySplit(partnerContact, ','))[1]}">claim@telecom-club.com</span>
+		<span class="footer-text" th:utext="${(#strings.arraySplit(partnerContact, ','))[2]}">88007700431</span>
+		<a class="footer-text"
+			href="http://moskva.beeline.ru/customers/products/mobile/services/details/uslugi-na-korotkikh-nomerakh/">Пользовательское соглашение</a>
   </div>
 </div>
-
+</form>
 <script type="text/javascript">
     //<![CDATA[
     function rsz() {
-        var footer = document['getElementById']('footer');
+        var footer = document['getElementById']('footer-block');
         var buttonWrap = document['getElementsByClassName']('btn-wrapper')[0];
         footer['style']['bottom'] = "auto";
         footer['style']['top'] = (window['innerHeight'] - footer.offsetHeight) + 'px';
